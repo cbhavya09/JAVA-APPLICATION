@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - feature/bhavya
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        run: |
+          echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
+          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+    
+      - name: Build with Maven
+        run: C:/apache-maven-3.9.0/bin/mvn clean install
+
+      - name: Create release artifact
+        run: |
+          $outputPath = "my-java-app.zip"
+          $sourcePath = "C:\Users\c.bhavya\Desktop\HDFC PROJ\java-trainning\Bhavya-Java\server\target\server.jar"
+          Compress-Archive -Path $sourcePath -DestinationPath $outputPath
+      - name: Store artifacts as workflow run artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Application Artifact
+          path: my-java-app.zip
+
+  release:
+    needs: build  # This ensures that the "release" job runs after the "build" job
+    runs-on: self-hosted
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: Application Artifact
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to create releases
+        with:
+          tag_name: ${{ github.sha }}  # Using commit SHA as the tag name
+          release_name: Release ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+      - name: Upload artifact to the release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to upload release assets
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./my-java-app.zip
+          asset_name: my-java-app.zip
+          asset_content_type: application/zip
