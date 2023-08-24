@@ -45,7 +45,8 @@ jobs:
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to create releases
+          GH_HOSTNAME: ${{ secrets.GH_HOSTNAME }}
+          GH_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.sha }}  # Using commit SHA as the tag name
           release_name: Release ${{ github.sha }}
