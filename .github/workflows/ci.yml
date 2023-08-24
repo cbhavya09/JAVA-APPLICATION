@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to create releases
         with:
-          tag_name: ${{ github.sha }}  # Using commit SHA as the tag name
+          tag_name: ${{ github.sha[0:7] }}
           release_name: Release ${{ github.sha }}
           draft: false
           prerelease: false
