@@ -18,39 +18,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Java
+        run: |
+          echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
+          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
           name: Application Artifact
-          path: my-java-app.zip
-
-      - name: List Artifact Contents
-        run: ls -R $GITHUB_WORKSPACE
 
       - name: Deploy to Local Server
         run: |
           # Set up your local server environment
           # Example: Install and configure Apache Tomcat
-
           # Copy the artifact to the server deployment directory
-          Expand-Archive -Path "D:\actions-runner\_work\Bhavya-Java\Bhavya-Java\target\my-java-app.zip" "C:\Users\c.bhavya\Desktop\HDFC PROJ\java-trainning\Bhavya-Java\target" -Force
-
+          Expand-Archive -Path "my-java-app.zip" "C:\path\to\deployment\directory" -Force
           # Navigate to the destination directory
-          cd "C:\Users\c.bhavya\Desktop\HDFC PROJ\java-trainning\Bhavya-Java\target"
-
+          cd "C:\path\to\deployment\directory"
           # Extract the artifact
           unzip my-java-app.zip
-
           # Start the server
           java -jar server.jar
-
           # Restart the server or trigger a reload
           # Add the appropriate command here to restart the server or trigger a reload
-   
+          
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to create releases
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
@@ -61,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-java-app
-          path: target/my-java-app.zip
+          path: my-java-app.zip
