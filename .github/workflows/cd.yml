@@ -33,9 +33,9 @@ jobs:
           # Set up your local server environment
           # Example: Install and configure Apache Tomcat
           # Copy the artifact to the server deployment directory
-          Expand-Archive -Path "my-java-app.zip" "C:\path\to\deployment\directory" -Force
+          Expand-Archive -Path "my-java-app.zip" "D:\actions-runner\_work\JAVA-APPLICATION\JAVA-APPLICATION" -Force
           # Navigate to the destination directory
-          cd "C:\path\to\deployment\directory"
+          cd "D:\actions-runner\_work\JAVA-APPLICATION\JAVA-APPLICATION"
           # Extract the artifact
           unzip my-java-app.zip
           # Start the server
