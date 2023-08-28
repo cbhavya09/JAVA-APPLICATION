@@ -21,44 +21,12 @@ jobs:
       - name: Build with Maven
         run: C:/apache-maven-3.9.0/bin/mvn clean install
 
-      - name: Create release artifact
+      - name: Package the artifact
         run: |
           $outputPath = "my-java-app.zip"
           $sourcePath = "C:\Users\c.bhavya\Desktop\HDFC PROJ\java-trainning\Bhavya-Java\server\target\server.jar"
           Compress-Archive -Path $sourcePath -DestinationPath $outputPath
-      - name: Store artifacts as workflow run artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Application Artifact
-          path: my-java-app.zip
 
-  release:
-    needs: build  # This ensures that the "release" job runs after the "build" job
-    runs-on: self-hosted
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: Application Artifact
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ format('v1.0.0-{0}', github.sha) }}
-          release_name: Release ${{ github.sha }}
-          draft: false
-          prerelease: false
-
-      - name: Upload artifact to the release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Required to upload release assets
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./my-java-app.zip
-          asset_name: my-java-app.zip
-          asset_content_type: application/zip
+      - name: Publish the artifact to Github release
+        run: |
+          gh release create v1.1.1 my-java-app.zip
