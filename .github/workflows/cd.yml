@@ -25,8 +25,7 @@ jobs:
 
       - name: Download artifact
         run: |
-          gh release download v5.0.0 --asset my-java-app.zip --repo cbhavya09/JAVA-APPLICATION
-          # Replace v5.0.0 with the actual release tag and adjust asset name and repo
+          gh release download v5.0.0 -p "my-java-app.zip" --repo cbhavya09/JAVA-APPLICATION
 
       - name: Deploy to Local Server
         run: |
