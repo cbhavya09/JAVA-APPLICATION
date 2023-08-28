@@ -23,13 +23,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-java-app
-          path: target/my-java-app.jar
+          path: target/my-project-1.0.0.jar
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: my-java-app
-          path: ./  # Place the artifact in the root directory of the workspace
+          path: target/my-project-1.0.0.jar  # Place the artifact in the root directory of the workspace
 
       - name: Unzip Artifact
         run: |
