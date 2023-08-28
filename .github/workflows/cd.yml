@@ -18,19 +18,27 @@ jobs:
         run: |
           echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
           echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
-
       - name: Archive Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: my-java-app
-          path: target/my-sample-project.jar
+          path: target/my-project-1.0.0.jar
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: my-java-app
-          path: target/my-sample-project.jar  # Adjust the filename and path if needed
+          path: target/my-sample-project.jar  # Place the artifact in the root directory of the workspace
+
+      - name: Create Directory for Artifact
+        run: mkdir my-java-app
+
+      - name: Extract ZIP Archive
+        run: Expand-Archive -Path "my-java-app.zip" -DestinationPath my-java-app
 
       - name: Deploy to Local Server
         run: |
-          java -jar target/my-sample-project.jar  # Adjust the filename if needed
+          # Navigate to the destination directory
+          cd my-java-app
+          # Start the server
+          java -jar server.jar
