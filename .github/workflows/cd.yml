@@ -24,7 +24,7 @@ jobs:
           echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-release-asset@v1
         with:
           name: Application Artifact
 
