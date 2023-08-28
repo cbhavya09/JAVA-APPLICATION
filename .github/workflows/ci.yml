@@ -8,7 +8,10 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_HOSTNAME: ${{ var.GH_HOSTNAME }}
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,10 +38,9 @@ jobs:
           apt update
           apt install gh
         if: runner.os == 'Linux'
-          
+
       - name: Publish the artifact to GitHub Release
         run: |
-          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
-          gh release create v1.1.1 my-java-app.zip --title "Release v1.1.1" --notes "Release notes here"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh release create v1.1.1 my-java-app.zip
+  
+
