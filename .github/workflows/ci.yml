@@ -29,4 +29,4 @@ jobs:
           
       - name: Publish the artifact to Github release
         run: |
-          gh release create v3.0.0 my-java-app.zip
+          gh release create v2.0.0 my-java-app.zip
