@@ -25,7 +25,7 @@ jobs:
 
       - name: Download artifact
         run: |
-          gh release download v5.0.0 -p "my-java-app.zip" --repo cbhavya09/JAVA-APPLICATION
+          gh release download v6.0.0 -p "my-java-app.zip" --repo cbhavya09/JAVA-APPLICATION
 
       - name: Deploy to Local Server
         run: |
