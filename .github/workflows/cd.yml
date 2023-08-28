@@ -32,9 +32,11 @@ jobs:
         run: |
           # Use a command to copy the extracted artifact to your IIS server
           # Example: Use scp or other appropriate tools to copy the files
-          scp -r my-java-app/* user@BG4NBL1091:C:\Users\c.bhavya\Downloads
+          pscp -r my-java-app/* user@BG4NBL1091:C:\Users\c.bhavya\Downloads
+
           
           # Use a command to start the Java application on the IIS server
-          ssh user@BG4NBL1091 "cd C:\Users\c.bhavya\Downloads && java -jar my-java-app.jar"
+          plink user@hostname "cd C:\Users\c.bhavya\Downloads && java -jar my-java-app.jar"
+
 
      
