@@ -23,20 +23,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-java-app
-          path: target/my-project-1.0.0.jar
+          path: target/my-sample-project.jar
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
           name: my-java-app
-          path: target/my-sample-project.jar  # Place the artifact in the root directory of the workspace
+          path: target/my-sample-project.jar  # Adjust the filename and path if needed
 
-      - name: Unzip Artifact
+      - name: Deploy to Local Server
         run: |
-          mkdir my-java-app
-          tar -xvf my-java-app.zip -C my-java-app
-
-      - name: Deploy to Loacal Server
-        run: |
-          cd my-java-app
-          java -jar my-java-app.jar
+          java -jar target/my-sample-project.jar  # Adjust the filename if needed
