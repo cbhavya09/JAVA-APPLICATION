@@ -8,11 +8,7 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-  
-  env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_HOSTNAME: ${{ vars.GH_HOSTNAME }}
-  
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,17 +27,6 @@ jobs:
           $sourcePath = "C:\Users\c.bhavya\Desktop\HDFC PROJ\java-trainning\Bhavya-Java\server\target\server.jar"
           Compress-Archive -Path $sourcePath -DestinationPath $outputPath
           
-      - name: Install gh CLI
-        run: |
-          # Install gh CLI
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          apt update
-          apt install gh
-        if: runner.os == 'Linux'
-
-      - name: Publish the artifact to GitHub Release
+      - name: Publish the artifact to Github release
         run: |
           gh release create v1.1.1 my-java-app.zip
-  
-
