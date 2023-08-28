@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
 
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.zMY_GITHUB_TOKEN }}
       GH_HOSTNAME: ${{ vars.GH_HOSTNAME}}
 
     steps:
@@ -25,8 +25,21 @@ jobs:
 
       - name: Download artifact
         run: |
-          gh release download
+          gh release download v5.0.0 --asset my-java-app.zip --repo cbhavya09/JAVA-APPLICATION
+          # Replace v5.0.0 with the actual release tag and adjust asset name and repo
 
+      - name: Deploy to Local Server
+        run: |
+          # Set up your local server environment
+          # Example: Install and configure Apache Tomcat
+          # Copy the artifact to the server deployment directory
+          Expand-Archive -Path "my-java-app.zip" "D:\my-server-directory" -Force
+          # Navigate to the destination directory
+          cd "D:\my-server-directory"
+          # Start the server
+          java -jar server.jar
+          # Restart the server or trigger a reload
+          # Add the appropriate command here to restart the server or trigger a reload
           
 
      
