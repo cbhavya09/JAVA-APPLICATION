@@ -29,7 +29,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: my-java-app
-          path: target/my-project-1.0.0.jar  # Place the artifact in the root directory of the workspace
+          path: target/my-sample-project.jar  # Place the artifact in the root directory of the workspace
 
       - name: Unzip Artifact
         run: |
