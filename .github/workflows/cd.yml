@@ -34,4 +34,4 @@ jobs:
           pscp -r my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
 
           # Use a command to start the Java application
-          plink bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
+          plink -batch bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
