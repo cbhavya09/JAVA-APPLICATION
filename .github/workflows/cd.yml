@@ -30,12 +30,12 @@ jobs:
 
       - name: Deploy
         run: |
-          # Use a command to copy the extracted artifact to your IIS server
+          # Use a command to copy the extracted artifact
           # Example: Use scp or other appropriate tools to copy the files
           pscp -r my-java-app/* user@BG4NBL1091:C:\Program Files\PuTTY
           "C:\Program Files\PuTTY\pscp.exe" -r my-java-app/* user@BG4NBL1091:C:\Program Files\PuTTY
           
-          # Use a command to start the Java application on the IIS server
+          # Use a command to start the Java application
           plink user@BG4NBL1091 "cd C:\Program Files\PuTTY && java -jar my-java-app.jar"
           shell: C:\windows\System32\WindowsPowerShell\v1.0\powershell.EXE -command ". '{0}'"
 
