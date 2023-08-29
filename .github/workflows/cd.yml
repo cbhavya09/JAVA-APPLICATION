@@ -31,8 +31,7 @@ jobs:
       - name: Deploy
         run: |
           # Use a command to copy the extracted artifact
-          # Use a command to copy the extracted artifact
-          "C:\Program Files\PuTTY\pscp.exe" -r my-java-app/* user@BG4NBL1091:'C:\Program Files\PuTTY'
+          pscp -r my-java-app/* user@BG4NBL1091:'C:\Program Files\PuTTY'
 
           # Use a command to start the Java application
           plink user@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
