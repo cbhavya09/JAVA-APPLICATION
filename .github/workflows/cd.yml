@@ -31,7 +31,7 @@ jobs:
       - name: Deploy
         run: |
           # Use a command to copy the extracted artifact
-          pscp -r -i C:\Users\c.bhavya\.ssh\id_rsa1.ppk my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
+          pscp -r -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
 
           # Use a command to start the Java application
-          plink -batch -i C:\Users\c.bhavya\.ssh\id_rsa1.ppk bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
+          plink -batch -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
