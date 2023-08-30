@@ -26,15 +26,18 @@ jobs:
       - name: Download artifact
         run: |
           gh release download v6.0.0 -p "my-java-app.zip" --repo cbhavya09/JAVA-APPLICATION
-          Expand-Archive -Path "my-java-app.zip" -DestinationPath "my-java-app" -Force
           
-      - name: Deploy
+      - name: Deploy to Local Server
         run: |
-          # Use a command to copy the extracted artifact
-          pscp -r my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
-
-      - name: Copy artifact to remote server
-        run: |
-          scp -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk -r my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
-
-
+          # Set up your local server environment
+          # Example: Install and configure Apache Tomcat
+          # Copy the artifact to the server deployment directory
+          Expand-Archive -Path "my-java-app.zip" "c:\my-server-directory" -Force
+          
+          # Navigate to the destination directory
+          cd "c:\my-server-directory"
+          # Start the server
+          java -jar server.jar
+          
+          # Restart the server or trigger a reload
+          # Add the appropriate command here to restart the server or trigger a reload
