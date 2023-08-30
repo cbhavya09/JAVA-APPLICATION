@@ -1,4 +1,4 @@
-name: CD
+name: Deploy to Local Server
 
 on:
   workflow_run:
@@ -12,7 +12,6 @@ jobs:
 
     env:
       GH_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-      GH_HOSTNAME: ${{ vars.GH_HOSTNAME}}
 
     steps:
       - name: Checkout code
@@ -28,7 +27,10 @@ jobs:
           gh release download v6.0.0 -p "my-java-app.zip" --repo cbhavya09/JAVA-APPLICATION
           Expand-Archive -Path "my-java-app.zip" -DestinationPath "my-java-app" -Force
 
-      - name: Deploy
+      - name: Deploy to Local Server
         run: |
-          pscp -r -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
-          plink -batch -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && java -jar my-java-app.jar"
+          # Copy the extracted artifact to the local server using SSH
+          scp -i "C:\Users\c.bhavya\.ssh\id_rsa2.ppk" -r my-java-app/* user@localhost:'C:\Users\c.bhavya\Desktop\deploy'
+          
+          # Run the Java application on the local server using SSH
+          ssh -i "C:\Users\c.bhavya\.ssh\id_rsa2.ppk" user@localhost "cd 'C:\Users\c.bhavya\Desktop\deploy' && java -jar my-java-app.jar"
