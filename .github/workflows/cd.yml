@@ -30,7 +30,6 @@ jobs:
       - name: Deploy to Local Server
         run: |
           # Set up your local server environment
-          # Example: Install and configure Apache Tomcat
           # Copy the artifact to the server deployment directory
           Expand-Archive -Path "my-java-app.zip" "c:\my-server-directory" -Force
           
@@ -38,6 +37,3 @@ jobs:
           cd "c:\my-server-directory"
           # Start the server
           java -jar server.jar
-          
-          # Restart the server or trigger a reload
-          # Add the appropriate command here to restart the server or trigger a reload
