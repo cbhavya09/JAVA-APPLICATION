@@ -35,5 +35,6 @@ jobs:
 
       - name: Copy artifact to remote server
         run: |
-          plink -batch -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk bhavyasonata@BG4NBL1091 "cd 'C:\Program Files\PuTTY' && pscp -r D:\actions-runner\_work\JAVA-APPLICATION\JAVA-APPLICATION\my-java-app ."
+          scp -i C:\Users\c.bhavya\.ssh\id_rsa2.ppk -r my-java-app/* bhavyasonata@BG4NBL1091:'C:\Program Files\PuTTY'
+
 
